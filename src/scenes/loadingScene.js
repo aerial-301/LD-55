@@ -3,7 +3,16 @@ import { fnt, nMaps, ogg, png, sheets, wav } from '../assets'
 import { gameScene } from './gameScene'
 import { fadeIn, fadeOut, midScene } from './midScene'
 
-const pal = {}
+const pal = {
+    black: 0x272736,
+    white: 0xffffeb,
+    red: 0xeb564b,
+    blue: 0x4b5bab,
+    yellow: 0xffe478,
+    orange: 0xf2a65e,
+    green: 0xcfff70,
+    pink: 0xffb5b5,
+}
 const depths = {
     actors: 10,
     shots: 200,

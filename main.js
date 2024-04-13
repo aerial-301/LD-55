@@ -10,7 +10,7 @@ export const game = new Phaser.Game({
     height: 180,
     parent: parent,
     fullscreenTarget: parent,
-    backgroundColor: '#111',
+    backgroundColor: '#0d041a',
     disableContextMenu: true,
     pixelArt: true,
     physics: {

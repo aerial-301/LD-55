@@ -1,0 +1,11 @@
+{
+    "type": "module",
+    "dependencies": {
+        "phaser": "^3.60.0",
+        "vite": "5.2.8"
+    },
+    "scripts": {
+        "a": "node getAssets.js",
+        "build": "vite build && 7z a dist/out.zip ./dist/*"
+    }
+}

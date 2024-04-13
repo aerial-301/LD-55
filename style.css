@@ -1,0 +1,23 @@
+@font-face {
+    font-family: mod;
+    /* src: url(); */
+}
+
+:root {
+    --white: #ffffeb;
+    --black: #111;
+    font-size: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    image-rendering: pixelated;
+}
+
+body {
+    font-family: mod, monospace;
+    background-color: #000;
+}

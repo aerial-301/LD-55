@@ -1,5 +1,3 @@
-import { gameScene } from './scenes/gameScene'
-import { g } from './scenes/loadingScene'
 import { uiScene } from './scenes/uiScene'
 
 let throttle = {}
@@ -8,7 +6,7 @@ export function clearStuff() {
     throttle = {}
 }
 
-export function throttledCall(func, delay, id = '', key = '' + func + id) {
+export function tCall(func, delay, id = '', key = '' + func + id) {
     if (!throttle[key]) {
         func()
         throttle[key] = true

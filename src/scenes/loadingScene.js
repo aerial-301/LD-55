@@ -4,7 +4,12 @@ import { gameScene } from './gameScene'
 import { fadeIn, fadeOut, midScene } from './midScene'
 
 const pal = {}
-const depths = {}
+const depths = {
+    actors: 10,
+    shots: 200,
+    particles: 500,
+    ui: 1000,
+}
 
 export const g = {
     sys: undefined,
@@ -19,6 +24,7 @@ export const g = {
     tw: 16,
     depths,
     pal,
+    maxSummons: 5,
 }
 
 export const loadingScene = new Phaser.Scene('loadingScene')
@@ -31,14 +37,11 @@ loadingScene.preload = () => {
 
 loadingScene.create = () => {
     const scene = game.scene.systemScene
-    console.log(scene.renderer)
     g.w = scene.renderer.width
     g.hw = g.w / 2
     g.h = scene.renderer.height
     g.hh = g.h / 2
     g.sys = scene
-
-    console.log(g.w, g.h)
 
     addLoadUI()
     loadFiles()

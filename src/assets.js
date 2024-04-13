@@ -2,11 +2,16 @@ export const ogg = {}
 export const wav = {}
 export const jpeg = {}
 export const png = {
+  "bg1": "bg1",
   "coz": "coz",
   "hBar": "hBar",
+  "hBarE": "hBarE",
   "musk": "musk",
+  "muskE": "muskE",
   "pike": "pike",
+  "pikeE": "pikeE",
   "sword": "sword",
+  "swordE": "swordE",
   "test": "test"
 }
 export const maps = {}

@@ -1,7 +1,7 @@
-import { Unit } from './unit'
-import { teams, units } from './teams'
 import { g } from './loadingScene'
 import { debug_addFullScreenButton } from './midScene'
+import { teams, units } from './teams'
+import { Unit } from './unit'
 export const uiScene = new Phaser.Scene('uiScene')
 
 export const statsUI = {
@@ -34,43 +34,44 @@ uiScene.create = () => {
         .bitmapText(20, 10, g.font, '1')
         .setInteractive()
         .on('pointerdown', () => {
-            summon1()
+            summon(units.sword)
         })
     const b2 = uiScene.add
         .bitmapText(40, 10, g.font, '2')
         .setInteractive()
         .on('pointerdown', () => {
-            summon2()
+            summon(units.pike)
         })
     const b3 = uiScene.add
         .bitmapText(60, 10, g.font, '3')
         .setInteractive()
         .on('pointerdown', () => {
-            summon3()
+            summon(units.musk)
         })
 
     uiScene.input.keyboard.on('keydown-ONE', () => {
-        summon1()
+        summon(units.sword)
     })
     uiScene.input.keyboard.on('keydown-TWO', () => {
-        summon2()
+        summon(units.pike)
     })
     uiScene.input.keyboard.on('keydown-THREE', () => {
-        summon3()
+        summon(units.musk)
+    })
+
+    uiScene.input.keyboard.on('keydown-B', () => {
+        if (g.summoning) {
+            g.summoning = false
+            g.battle = true
+        }
     })
 }
 
-function summon1() {
+/** @param {import('../typeDefs').UnitType} type */
+function summon(type) {
+    if (!g.summoning) return
     if (teams.player.units.length >= g.maxSummons) return
-    new Unit(teams.player, units.sword)
-}
-function summon2() {
-    if (teams.player.units.length >= g.maxSummons) return
-    new Unit(teams.player, units.pike)
-}
-function summon3() {
-    if (teams.player.units.length >= g.maxSummons) return
-    new Unit(teams.player, units.musketeer)
+    new Unit(teams.player, type)
 }
 
 uiScene.update = () => {

@@ -34,6 +34,9 @@ export const g = {
     depths,
     pal,
     maxSummons: 5,
+    summoning: true,
+    battle: false,
+    level: 1,
 }
 
 export const loadingScene = new Phaser.Scene('loadingScene')

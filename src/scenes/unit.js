@@ -1,8 +1,8 @@
 import { getUnitVector, randF, removeFromArray, tCall } from '../utils'
-import { g } from './loadingScene'
-import { damageMods, teams } from './teams'
 import { gameScene } from './gameScene'
-import { png } from '../assets'
+import { g } from './loadingScene'
+import { damageMods } from './teams'
+import { uiScene } from './uiScene'
 
 export class Unit {
     /**
@@ -13,13 +13,8 @@ export class Unit {
     constructor(team, type) {
         // console.log(team)
         this.o = gameScene.physics.add
-            .image(team.x, team.y + randF(-50, 50), type.png)
-            // .setAlpha(0.3)
+            .image(team.x, team.y + randF(-50, 50), type.png[team.name])
             .setOrigin(0.5, 1)
-
-        if (team === teams.other) {
-            this.o.setTint(0xffaaaa)
-        }
 
         this.team = team
         this.type = type
@@ -31,7 +26,7 @@ export class Unit {
         this.id = g.m.RND.uuid()
 
         this.hBar = gameScene.add
-            .image(this.x, this.y - this.o.displayHeight - 4, png.hBar)
+            .image(this.x, this.y - this.o.displayHeight - 4, team.bar)
             .setDepth(g.depths.ui)
 
         this.speed = this.type.moveSpeed
@@ -63,6 +58,7 @@ export class Unit {
         this.hBar.setPosition(this.x, this.y - this.o.displayHeight - 4)
         if (!this.team.enemy.units.length) return
         let min = 99999
+        /** @type {Unit} */
         let target
         for (let e of this.team.enemy.units) {
             const d = g.m.Distance.BetweenPointsSquared(this.o, e.o)
@@ -85,20 +81,61 @@ export class Unit {
         }
     }
 
+    /**
+     * @param {Unit} target
+     */
     attack(target) {
-        const mod = damageMods[this.png][target.png]
+        const mod = damageMods[this.type.name][target.type.name]
         if (!mod) {
             console.log(this.png)
             console.log(target.png)
             throw 'e'
         }
-        target.getDamaged(this.damage * damageMods[this.png][target.png])
+        target.getDamaged(this.damage * mod)
     }
 
     getDamaged(amount) {
+        amount = Math.ceil(amount)
         this.health -= amount
+
+        const dmgNum = gameScene.add
+            .bitmapText(this.x, this.y - 30, g.font, amount)
+            .setDepth(g.depths.particles)
+            .setTintFill(this.team.enemy.dmgColor)
+
+        gameScene.tweens.add({
+            targets: dmgNum,
+            props: {
+                x: this.x + randF(-20, 20),
+                y: '-=20',
+                scale: { from: 0.6, to: 1.5 },
+            },
+            duration: 500,
+            onComplete() {
+                dmgNum.destroy()
+            },
+        })
+
         if (this.health <= 0) this.die()
-        else this.updateUI()
+        else {
+            this.updateUI()
+            this.o.setTintFill(g.pal.white)
+            gameScene.tweens.add({
+                targets: this.o,
+                props: {
+                    angle: { from: -10, to: 10 },
+                },
+                duration: 90,
+                ease: g.e.Sine.In,
+                // yoyo: true,
+                onComplete: () => {
+                    this.o.setAngle(0)
+                },
+            })
+            uiScene.time.delayedCall(100, () => {
+                this.o.clearTint()
+            })
+        }
     }
 
     updateUI() {

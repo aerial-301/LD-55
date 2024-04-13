@@ -7,6 +7,7 @@ import { g } from './loadingScene'
 
 export const teams = {
     player: {
+        name: 'player',
         x: 30,
         get y() {
             return g.hh
@@ -16,8 +17,11 @@ export const teams = {
             return teams.other
         },
         score: 0,
+        dmgColor: g.pal.green,
+        bar: png.hBar,
     },
     other: {
+        name: 'other',
         get x() {
             return g.w - 30
         },
@@ -29,16 +33,21 @@ export const teams = {
             return teams.player
         },
         score: 0,
+        dmgColor: g.pal.pink,
+        bar: png.hBarE,
     },
 }
 /**
- * @type {{sword: import('../typeDefs').UnitType, pike: import('../typeDefs').UnitType, musketeer:import('../typeDefs').UnitType}}
+ * @type {{sword: import('../typeDefs').UnitType, pike: import('../typeDefs').UnitType, musk:import('../typeDefs').UnitType}}
  */
 
 export const units = {
     sword: {
         name: 'sword',
-        png: png.sword,
+        png: {
+            player: png.sword,
+            other: png.swordE,
+        },
         health: 100,
         damage: 25,
         range: 32,
@@ -47,16 +56,22 @@ export const units = {
     },
     pike: {
         name: 'pike',
-        png: png.pike,
+        png: {
+            player: png.pike,
+            other: png.pikeE,
+        },
         health: 100,
         damage: 25,
         range: 32,
         fireRate: 0.7,
         moveSpeed: 140,
     },
-    musketeer: {
+    musk: {
         name: 'musketeer',
-        png: png.musk,
+        png: {
+            player: png.musk,
+            other: png.muskE,
+        },
         health: 100,
         damage: 25,
         range: 32 * 5,
@@ -65,19 +80,19 @@ export const units = {
     },
 }
 export const damageMods = {
-    [png.sword]: {
-        [png.pike]: 1.6,
-        [png.musk]: 0.9,
-        [png.sword]: 1,
+    [units.sword.name]: {
+        [units.pike.name]: 1.6,
+        [units.musk.name]: 0.9,
+        [units.sword.name]: 1,
     },
-    [png.pike]: {
-        [png.pike]: 0.3,
-        [png.sword]: 0.45,
-        [png.musk]: 1.9,
+    [units.pike.name]: {
+        [units.pike.name]: 0.3,
+        [units.sword.name]: 0.45,
+        [units.musk.name]: 1.9,
     },
-    [png.musk]: {
-        [png.sword]: 1.25,
-        [png.pike]: 0.35,
-        [png.musk]: 2,
+    [units.musk.name]: {
+        [units.sword.name]: 1.25,
+        [units.pike.name]: 0.35,
+        [units.musk.name]: 2,
     },
 }

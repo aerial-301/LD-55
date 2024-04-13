@@ -1,4 +1,6 @@
+import { gameScene } from './scenes/gameScene'
 import { g } from './scenes/loadingScene'
+import { uiScene } from './scenes/uiScene'
 
 let throttle = {}
 
@@ -10,7 +12,7 @@ export function throttledCall(func, delay, id = '', key = '' + func + id) {
     if (!throttle[key]) {
         func()
         throttle[key] = true
-        g.sys.time.delayedCall(delay, () => {
+        uiScene.time.delayedCall(delay, () => {
             throttle[key] = false
         })
     }
@@ -34,4 +36,27 @@ export function randF(min, max) {
 
 export function addToArrayOnce(item, array) {
     if (!array.find(i => i === item)) array.push(item)
+}
+
+export function removeFromArray(item, array) {
+    const index = array.indexOf(item)
+    array.splice(index, 1)
+}
+
+export function pickRandom(array) {
+    const index = randI(0, array.length)
+    return array[index]
+}
+
+export function getUnitVector(a, b) {
+    const angle = angleBetween(a, b)
+    return {
+        x: Math.cos(angle),
+        y: Math.sin(angle),
+        angle: angle,
+    }
+}
+
+export function angleBetween(a, b) {
+    return Math.atan2(b.y - a.y, b.x - a.x)
 }

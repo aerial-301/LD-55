@@ -3,6 +3,9 @@ export const wav = {}
 export const jpeg = {}
 export const png = {
   "coz": "coz",
+  "musk": "musk",
+  "pike": "pike",
+  "sword": "sword",
   "test": "test"
 }
 export const maps = {}

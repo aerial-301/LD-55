@@ -5,7 +5,7 @@ import { midScene } from './src/scenes/midScene'
 import { uiScene } from './src/scenes/uiScene'
 const parent = 'main'
 export const game = new Phaser.Game({
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     width: 320,
     height: 180,
     parent: parent,
@@ -13,6 +13,9 @@ export const game = new Phaser.Game({
     backgroundColor: '#111',
     disableContextMenu: true,
     pixelArt: true,
+    physics: {
+        default: 'arcade',
+    },
     dom: {
         createContainer: true,
     },

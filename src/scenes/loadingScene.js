@@ -31,18 +31,22 @@ loadingScene.preload = () => {
 
 loadingScene.create = () => {
     const scene = game.scene.systemScene
+    console.log(scene.renderer)
     g.w = scene.renderer.width
     g.hw = g.w / 2
     g.h = scene.renderer.height
     g.hh = g.h / 2
     g.sys = scene
 
+    console.log(g.w, g.h)
+
     addLoadUI()
     loadFiles()
 
     loadingScene.scene.launch(midScene)
     midScene.events.on(Phaser.Scenes.Events.CREATE, () => {
-        fadeIn(512, () => {
+        // fadeIn(512, () => {
+        fadeIn(111, () => {
             loadingScene.load.start()
         })
     })
@@ -67,13 +71,16 @@ function addLoadUI() {
             props: {
                 displayWidth: bW * value,
             },
-            duration: 512,
+            // duration: 512,
+            duration: 1,
         })
     })
 
     loadingScene.load.on(Phaser.Loader.Events.COMPLETE, () => {
-        loadingScene.time.delayedCall(640, () => {
-            fadeOut(512, () => {
+        // loadingScene.time.delayedCall(640, () => {
+        loadingScene.time.delayedCall(1, () => {
+            // fadeOut(512, () => {
+            fadeOut(991, () => {
                 loadingScene.scene.start(gameScene)
             })
         })

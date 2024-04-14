@@ -10,6 +10,7 @@ import { Unit } from './scenes/unit'
  * @prop {Number} score
  * @prop {Number} dmgColor
  * @prop {string} bar
+ * @prop {Phaser.GameObjects.Particles.ParticleEmitter} parts
  */
 
 /**

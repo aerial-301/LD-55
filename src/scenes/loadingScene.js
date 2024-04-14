@@ -15,9 +15,9 @@ const pal = {
 }
 const depths = {
     actors: 10,
-    shots: 200,
-    particles: 500,
-    ui: 1000,
+    shots: 1000,
+    particles: 1500,
+    ui: 2000,
 }
 
 export const g = {
@@ -28,15 +28,19 @@ export const g = {
     hh: undefined,
     m: Phaser.Math,
     e: Phaser.Math.Easing,
-    font: fnt.coz,
+    font: fnt.cozettevector,
     fSize: 13,
     tw: 16,
     depths,
     pal,
-    maxSummons: 5,
+    maxSummons: 0,
     summoning: true,
     battle: false,
+    enemyReady: false,
     level: 1,
+    coins: 0,
+    lives: 3,
+    playerStuff: [],
 }
 
 export const loadingScene = new Phaser.Scene('loadingScene')
@@ -54,14 +58,14 @@ loadingScene.create = () => {
     g.h = scene.renderer.height
     g.hh = g.h / 2
     g.sys = scene
+    g.coins = 1
 
     addLoadUI()
     loadFiles()
 
     loadingScene.scene.launch(midScene)
     midScene.events.on(Phaser.Scenes.Events.CREATE, () => {
-        // fadeIn(512, () => {
-        fadeIn(111, () => {
+        fadeIn(512, () => {
             loadingScene.load.start()
         })
     })
@@ -86,16 +90,14 @@ function addLoadUI() {
             props: {
                 displayWidth: bW * value,
             },
-            // duration: 512,
-            duration: 1,
+            duration: 512,
+            ease: g.e.Sine.In,
         })
     })
 
     loadingScene.load.on(Phaser.Loader.Events.COMPLETE, () => {
-        // loadingScene.time.delayedCall(640, () => {
-        loadingScene.time.delayedCall(1, () => {
-            // fadeOut(512, () => {
-            fadeOut(991, () => {
+        loadingScene.time.delayedCall(500, () => {
+            fadeOut(512, () => {
                 loadingScene.scene.start(gameScene)
             })
         })

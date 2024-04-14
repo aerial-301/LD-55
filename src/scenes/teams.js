@@ -1,4 +1,5 @@
 import { png } from '../assets'
+import { partsGreen, partsPurple } from './gameScene'
 import { g } from './loadingScene'
 
 /**
@@ -19,6 +20,9 @@ export const teams = {
         score: 0,
         dmgColor: g.pal.green,
         bar: png.hBar,
+        get parts() {
+            return partsGreen
+        },
     },
     other: {
         name: 'other',
@@ -35,6 +39,9 @@ export const teams = {
         score: 0,
         dmgColor: g.pal.pink,
         bar: png.hBarE,
+        get parts() {
+            return partsPurple
+        },
     },
 }
 /**
@@ -63,7 +70,7 @@ export const units = {
         health: 100,
         damage: 25,
         range: 32,
-        fireRate: 0.7,
+        fireRate: 0.85,
         moveSpeed: 140,
     },
     musk: {
@@ -75,24 +82,24 @@ export const units = {
         health: 100,
         damage: 25,
         range: 32 * 5,
-        fireRate: 0.5,
-        moveSpeed: 70,
+        fireRate: 0.7,
+        moveSpeed: 60,
     },
 }
 export const damageMods = {
     [units.sword.name]: {
-        [units.pike.name]: 1.6,
-        [units.musk.name]: 0.9,
-        [units.sword.name]: 1,
+        [units.pike.name]: 1.7,
+        [units.musk.name]: 0.5,
+        [units.sword.name]: 0.7,
     },
     [units.pike.name]: {
-        [units.pike.name]: 0.3,
-        [units.sword.name]: 0.45,
-        [units.musk.name]: 1.9,
+        [units.pike.name]: 0.4,
+        [units.sword.name]: 0.35,
+        [units.musk.name]: 1.8,
     },
     [units.musk.name]: {
-        [units.sword.name]: 1.25,
+        [units.sword.name]: 1.75,
         [units.pike.name]: 0.35,
-        [units.musk.name]: 2,
+        [units.musk.name]: 0.8,
     },
 }

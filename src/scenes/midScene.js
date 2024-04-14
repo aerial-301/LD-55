@@ -1,3 +1,5 @@
+import { g } from './loadingScene'
+
 export const midScene = new Phaser.Scene('midScene')
 /** @type {Phaser.GameObjects.DOMElement} */
 let cover
@@ -19,6 +21,7 @@ export function fadeIn(duration = 600, complete = () => {}) {
             alpha: { from: 1, to: 0 },
         },
         duration: duration,
+        ease: g.e.Sine.In,
         onComplete() {
             complete()
             cover.removeInteractive()
@@ -34,6 +37,7 @@ export function fadeOut(duration = 600, complete = () => {}) {
             alpha: { from: 0, to: 1 },
         },
         duration: duration,
+        ease: g.e.Sine.In,
         onComplete() {
             complete()
         },
